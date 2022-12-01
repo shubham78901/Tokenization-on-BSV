@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script 
+        type="text/javascript" 
+        src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
+     <link rel="stylesheet" href="style.css">
+     <script src="App.js"></script>
+  </head>
+  <body>
+      
+    <form id="form" >
+      <label>Authentication Token</label><br>
+      <input type="text" id="authToken" ><br><br>
+      <label>Token Name</label><br>
+      <input type="text" id="tokenName" ><br><br>
+      <label>Symbol</label><br>
+      <input type="text" id="symbol"><br><br>
+      <label>Description</label><br>
+      <input type="text" id="description" ><br><br>
+      <label>Icon URL</label><br>
+      <input type="text" id="icon"><br><br>
+      <label>Supply</label><br>
+      <input type="text" id="supply" value="4"><br><br>
+
+
+      <input type="button" onClick="issueToken()" value="Issue-Token(response below)"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="token"> </p>
+    </div>
+    
+    
+
+    <form id="form" >
+       
+  
+  
+        <input type="button" onClick="DestrroyToken()" value="Destroy-Token(response below)"/>
+      </form> 
+         
+    <div id="block3">
+        <p id="token"> </p>
+     </div>
+     
+      
+  
+  </body>
+</html>

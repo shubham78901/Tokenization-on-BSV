@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script 
+        type="text/javascript" 
+        src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
+        <link rel="stylesheet" href="style.css">
+        <script src="App.js"></script>
+  </head>
+  <body>
+      
+    <form id="form" >
+      <label>authToken:</label><br>
+      <input type="text" id="authToken" ><br><br>
+      <input type="button" onClick="createWallet()" value="Create Wallet" style="cursor:pointer"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="token"> </p>
+    </div>
+    
+    <form id="form2" >
+      <input type="button" onClick="showWallets()" value="Show Wallets" style="cursor:pointer"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="wallets"> </p>
+    </div>
+
+    <script> 
+    let createWallet = () => {
+        var config = {
+            method: 'get',
+            url: "https://api.relysia.com/v1/createWallet",
+            headers: { authToken: document.getElementById("authToken").value, 
+                       walletTitle: 'default2' }
+        };
+                
+        axios(config)
+        .then((response) => {
+          let p = document.getElementById("token");
+          p.innerHTML = JSON.stringify(response.data.data, null, "<br>");
+        })
+    };
+    
+    let showWallets = () => {
+        var config = {
+            method: 'get',
+            url: "https://api.relysia.com/v1/wallets",
+            headers: { authToken: document.getElementById("authToken").value }
+        };
+                
+        axios(config)
+        .then((response) => {
+          let p2 = document.getElementById("wallets");
+          p2.innerHTML = JSON.stringify(response.data.data, null, "<br>");
+        })
+    };
+    </script>
+  </body>
+</html>
