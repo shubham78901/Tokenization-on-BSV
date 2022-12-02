@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script 
+        type="text/javascript" 
+        src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      
+    <form id="form" >
+      <label>Authentication Token</label><br>
+      <input type="text" id="authToken" value="eyJhbGciOiJSUzI1NiIsImtpZCI6Ijk1MWMwOGM1MTZhZTM1MmI4OWU0ZDJlMGUxNDA5NmY3MzQ5NDJhODciLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiU0hVQkhBTSBHQVVUQU0iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FDTlBFdS01bjNtd0NmcThFdFlRY1V5T1NMVkpaUHVZRWQ1T0pxcFQ2VVdPPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2hpdmVkYi1jZGJmNyIsImF1ZCI6ImhpdmVkYi1jZGJmNyIsImF1dGhfdGltZSI6MTY2OTkxNDkwNiwidXNlcl9pZCI6ImMyc3ZFdHZYV25NMUNWUHUwQVVOckR6dkpJaDEiLCJzdWIiOiJjMnN2RXR2WFduTTFDVlB1MEFVTnJEenZKSWgxIiwiaWF0IjoxNjcwMDA2NzY5LCJleHAiOjE2NzAwMTAzNjksImVtYWlsIjoic3MzNjM3NTdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZ29vZ2xlLmNvbSI6WyIxMDMwMzc4OTQ5ODA5NDAxODMxMjUiXSwiZW1haWwiOlsic3MzNjM3NTdAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.iXurQB_hd7gmOHeJOdXvofKHLK-_tK4p33-T_JbdaFuX-e2_GHGN64xQRq3SBXulPaAdf3eaUE6Pyb6DQ6_jYiy4DMG8LBWd4NwJtNN35k__zz1yPdYGYfuyoe40RNlNlrRUiHWrH1rJM1rHyF5lhI_L5casa-VJR0JBg8UoYBUafPpw5Vy7S5_1TUlQn3MXFMahzzgWNaqTZ3x9WaJ7bUnVm1xJAti_B8TB0qMUcP0T3fvJTUZvfFecNO2c2SUS0nH9LxCyIvP8Mmv-jEF4nz45WNS0Ees1N26GiUz99knHq9EgH42HTeEbPGYDk1Sx_AZ8hopBy_22ESVlqnW-Jw"><br><br>
+      <label>Token Name</label><br>
+      <input type="text" id="tokenName" value="Satolearn Token"><br><br>
+      <label>Symbol</label><br>
+      <input type="text" id="symbol" value="SATOL"><br><br>
+      <label>Description</label><br>
+      <input type="text" id="description" value="A Satolearn token for eager learners"><br><br>
+      <label>Icon URL</label><br>
+      <input type="text" id="icon" value="https://www.satolearn.com/media/logos/bird-xs.png"><br><br>
+      <label>Supply</label><br>
+      <input type="text" id="supply" value="4"><br><br>
+
+
+      <input type="button" onClick="issueToken()" value="Issue Token"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="token"> </p>
+    </div>
+    
+
+    <script> 
+    let issueToken = () => {
+        var config = {
+            method: 'post',
+            url: "https://api.relysia.com/v1/issue",
+            headers: { authToken: document.getElementById("authToken").value },
+            data: {
+              "name": document.getElementById("tokenName").value,
+              "protocolId": "STAS",
+              "symbol": document.getElementById("symbol").value,
+              "description": document.getElementById("description").value,
+              "image": document.getElementById("icon").value,
+              "tokenSupply": document.getElementById("supply").value,
+              "tyoe":"NFT",
+              "decimals": 0,
+              "satsPerToken": 1,
+              "properties": {
+                "legal": {
+                  "terms": "Your token terms and description.",
+                  "licenceId": "T3ST-2"
+                },
+                "issuer": {
+                  "organisation": "Vaionex Corp.",
+                  "legalForm": "Limited",
+                  "governingLaw": "US",
+                  "issuerCountry": "US",
+                  "jurisdiction": "US",
+                  "email": "info@vaionex.com"
+                },
+                "meta": {
+                  "schemaId": "NFT1.0/MA",
+                  "website": "vaionex.com",
+                  "legal": {
+                    "terms": "© 2020 TAAL TECHNOLOGIES SEZC\nALL RIGHTS RESERVED. ANY USE OF THIS SOFTWARE IS SUBJECT TO TERMS AND CONDITIONS OF LICENSE. USE OF THIS SOFTWARE WITHOUT LICENSE CONSTITUTES INFRINGEMENT OF INTELLECTUAL PROPERTY. FOR LICENSE DETAILS OF THE SOFTWARE, PLEASE REFER TO: www.taal.com/stas-token-license-agreement"
+                  },
+                  "media": [
+                    {
+                      "URI": "string",
+                      "type": "string",
+                      "altURI": "string"
+                    }
+                  ]
+                }
+              },
+              "splitable": true
+            }
+        };
+                
+        axios(config)
+        .then((response) => {
+          let p = document.getElementById("token");
+          console.log(response.data.data);
+          p.innerHTML = JSON.stringify(response.data.data, null, "<br>");
+        })
+    };
+    </script>
+  </body>
+</html>
