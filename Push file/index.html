@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script 
+        type="text/javascript" 
+        src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+      
+    <form id="form" >
+      <label>Authentication Token</label><br>
+      <input type="text" id="authToken"><br><br>
+      <label>File URL</label><br>
+      <input type="text" id="fileUrl" ><br><br>
+      <label>File Name</label><br>
+      <input type="text" id="fileName" ><br><br>
+      <label>File Notes</label><br>
+      <input type="text" id="fileNotes" ><br><br>
+      <input type="button" onClick="uploadData()" value="Upload Data"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="token"> </p>
+    </div>
+    
+    <script> 
+    let uploadData = () => {
+        var config = {
+            method: 'post',
+            url: "https://api.relysia.com/upload",
+            headers: { authToken: document.getElementById("authToken").value },
+            data: {
+              type: "media",
+              fileUrl: document.getElementById("fileUrl").value,
+              fileName: document.getElementById("fileName").value,
+              notes: document.getElementById("fileNotes").value,
+            }
+        };
+                
+        axios(config)
+        .then((response) => {
+          let p = document.getElementById("token");
+          p.innerHTML = JSON.stringify(response.data.data, null, "<br>");
+        })
+    };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script 
+        type="text/javascript" 
+        src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+    </script>
+        <link rel="stylesheet" href="style.css">
+
+    
+  </head>
+  <body>
+      
+    <form id="form" >
+      <label>Authentication Token</label><br>
+      <input type="text" id="authToken"><br><br>
+      <label>Message</label><br>
+      <input type="text" id="message" value="Blockchain is Great"><br><br>
+      <input type="button" onClick="post()" value="Post Message"/>
+    </form> 
+    
+    <div id="block2">
+       <p id="response"> </p>
+    </div>
+
+    <script> 
+    let post = () => {
+        var config = {
+            method: 'post',
+            url: "https://api.relysia.com/post",
+            headers: { authToken: document.getElementById("authToken").value },
+            data: {
+                "notes": [
+                    "Satolearn",
+                    "Real World",
+                    "Experience",
+                    document.getElementById("message").value
+                 ]
+            }
+        };
+                
+        axios(config)
+        .then((response) => {
+          let p = document.getElementById("response");
+          console.log(response.data.data);
+          p.innerHTML = JSON.stringify(response.data.data, null, "<br/>");
+        })
+    };
+    </script>
+  </body>
+</html>
